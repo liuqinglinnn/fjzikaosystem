@@ -2,15 +2,19 @@
   <div>
     <el-row :gutter="10" class="mb8" style="margin:10px ">
       <el-col :span="1.5">
-        <el-button
-          plain
-          size="mini"
-          type="primary"
-          @click="clickupload"
-        >上传国考安排时间
-        </el-button>
-        <input style="width: 0;height: 0" type="file"  @click="uploadgktime" ref="files"
-               accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+        <el-upload
+            class="upload-demo"
+            :action="null"
+            :show-file-list="false"
+            :http-request="imgUploadLicense"
+        >
+          <el-button
+              plain
+              size="mini"
+              type="primary"
+          >上传国考安排时间
+          </el-button>
+        </el-upload>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -74,7 +78,8 @@
 <script >
 import { getkstable, orderlist, uploadexcel } from '@/api/arrangement'
 import XLSX from 'xlsx'
-
+import axios from 'axios'
+import { updategkkc } from '@/api/plan'
 export default {
   data() {
     return {
@@ -109,17 +114,15 @@ export default {
    this.getList()
   },
   methods: {
-    clickupload(){
-      this.$refs.files.click()
-  },
+    //文件操作
+    imgUploadLicense(e) {
+      console.log(e)
+      this.uploadgktime(e.file)
+    },
+
     uploadgktime(event){
-      console.log()
-      if (!event.currentTarget.files.length) {
-        return
-      }
-      const that = this
-      // 拿取文件对象
-      var f = event.currentTarget.files[0]
+      let outdataquery
+      var f=event
       // 用FileReader来读取
       var reader = new FileReader()
       // 重写FileReader上的readAsBinaryString方法
@@ -143,17 +146,18 @@ export default {
           // 自定义方法向父组件传递数据
           for(var i = 0;i<outdata.length;i++){
             console.log(outdata[i])
-            uploadexcel(outdata[i]).then(res=>{
-              console.log(res)
-            })
-            if(i==outdata.length-1){
-              this.$message.success("上传成功");
-            }
+            updategkkc(outdata[i])
           }
+
+          // uploadexcel(outdata).then(res=>{
+          //   console.log(res)
+          //
+          // })
         }
         reader.readAsArrayBuffer(f)
       }
       reader.readAsBinaryString(f)
+      this.$message.success("上传成功");
     },
     getList() {
       console.log("get")
@@ -173,7 +177,7 @@ export default {
     },
     handleExport() {
       this.$confirm('是否确认导出').then(function() {
-        window.open("http://localhost:8081/FZUZK/excel")
+        window.open("http://59.77.134.82:8081/FZUZK/excel")
         // getexcel().then(async (data) => {
         //   const isBlob = blobValidate(data);
         //   if (isBlob) {

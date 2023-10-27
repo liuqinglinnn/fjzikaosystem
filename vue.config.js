@@ -36,23 +36,23 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    proxy: {
-      // detail: https://cli.vuejs.org/config/#devserver-proxy
-      // '/dev-apione': {
-      //   target: `http://localhost:8080`,
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     ['^' + process.env.VUE_APP_BASE_API]: ''
-      //   }
-      // },
-      '/dev-apitwo': {
-        target: `http://localhost:8081`,
-        changeOrigin: true,
-        pathRewrite: {
-          ['^' + process.env.VUE_APP_BASE_API2]: ''
-        }
-      }
-    },
+    // proxy: {
+    //   // detail: https://cli.vuejs.org/config/#devserver-proxy
+    //   // '/dev-apione': {
+    //   //   target: `http://localhost:8080`,
+    //   //   changeOrigin: true,
+    //   //   pathRewrite: {
+    //   //     ['^' + process.env.VUE_APP_BASE_API]: ''
+    //   //   }
+    //   // },
+    //   [process.env.VUE_APP_BASE_API2]: {
+    //     target: `http://59.77.134.82:8081/`,
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       ['^' + process.env.VUE_APP_BASE_API2]: ''
+    //     }
+    //   }
+    // },
     before: require('./mock/mock-server.js')
   },
   configureWebpack: {

@@ -84,17 +84,17 @@
               >新增(开发中)
               </el-button>
             </el-col>
-            <el-col :span="1.5">
-              <el-button
-                :disabled="single"
-                icon="el-icon-edit"
-                plain
-                size="mini"
-                type="success"
-                @click="handleUpdate"
-              >修改
-              </el-button>
-            </el-col>
+<!--            <el-col :span="1.5">-->
+<!--              <el-button-->
+<!--                :disabled="single"-->
+<!--                icon="el-icon-edit"-->
+<!--                plain-->
+<!--                size="mini"-->
+<!--                type="success"-->
+<!--                @click="handleUpdate"-->
+<!--              >修改()-->
+<!--              </el-button>-->
+<!--            </el-col>-->
             <el-col :span="1.5">
               <el-button
                 :disabled="multiple"
@@ -103,7 +103,7 @@
                 size="mini"
                 type="danger"
                 @click="handleDelete"
-              >删除
+              >删除(批量删除开发中)
               </el-button>
             </el-col>
           </el-row>

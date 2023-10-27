@@ -27,8 +27,11 @@ export function getexcel() {
 export function uploadexcel(query) {
   console.log(query)
   return request2({
+    headers: {
+      "Content-Type":  'application/json;charset=utf-8'
+    },
     url: '/FZUZK/zykc/importgksj',
     method: 'post',
-    params:query
+    data:query
   })
 }
