@@ -1,5 +1,6 @@
 import request2 from '@/utils/request2'
 import request from "@/utils/request";
+import qs from "qs";
 
 // 获取编排结果
 export function getkstable() {
@@ -24,14 +25,13 @@ export function getexcel() {
     method: 'get',
   })
 }
-export function uploadexcel(query) {
-  console.log(query)
+export function uploadexcel(a) {
   return request2({
-    headers: {
-      "Content-Type":  'application/json;charset=utf-8'
-    },
     url: '/FZUZK/zykc/importgksj',
     method: 'post',
-    data:query
+    data: a,
+    // paramsSerializer: function (params) {
+    //   return qs.stringify(params,{ arrayFormat: "repeat",encode: false });
+    // },
   })
 }

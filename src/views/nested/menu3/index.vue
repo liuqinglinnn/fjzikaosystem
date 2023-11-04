@@ -32,7 +32,17 @@
           size="mini"
           type="warning"
           @click="handleExport"
-        >导出
+        >导出编排结果
+        </el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
+          icon="el-icon-download"
+          plain
+          size="mini"
+          type="warning"
+          @click="handleExport2"
+        >导出课程列表
         </el-button>
       </el-col>
     </el-row>
@@ -43,7 +53,8 @@
           <el-table-column label="专业代码名称" prop="zy_mc" width="150" >
             <template #default="scope">
               <div >
-                {{ scope.row.zy_dm }}  {{ scope.row.zy_mc }}
+                <div v-if="scope.row.sftzzs=='是' ">#</div>
+                {{ scope.row.zy_dm }}  {{ scope.row.zy_mc }}({{scope.row.cc}})
               </div>
             </template>
           </el-table-column>
@@ -57,7 +68,9 @@
           <el-table-column label="上   午  (9:00-11:30)" prop="morning" width="150">
             <template #default="morning">
               <div v-for="item in morning.row.date[index].morningList">
-                {{item.kc_dm}} {{item.kc_mc}}
+
+                <div v-if="item.bz!='国考'">{{item.kc_dm}} {{item.kc_mc}}△</div>
+                <div v-else>   {{item.kc_dm}} {{item.kc_mc}} </div>
               </div>
             </template>
           </el-table-column>
@@ -143,16 +156,19 @@ export default {
             type: 'binary'
           })
           outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
+          let a = [];
+            let  b =[];
+            let c =[];
           // 自定义方法向父组件传递数据
           for(var i = 0;i<outdata.length;i++){
-            console.log(outdata[i])
-            updategkkc(outdata[i])
+             a[i]=outdata[i].kc_dm,
+             b[i]=outdata[i].sj,
+               c[i]=outdata[i].kc_mc
           }
-
-          // uploadexcel(outdata).then(res=>{
-          //   console.log(res)
-          //
-          // })
+          uploadexcel(outdata).then(res=>{
+            console.log(res)
+          })
+          console.log(outdata,output)
         }
         reader.readAsArrayBuffer(f)
       }
@@ -178,23 +194,16 @@ export default {
     handleExport() {
       this.$confirm('是否确认导出').then(function() {
         window.open("http://59.77.134.82:8081/FZUZK/excel")
-        // getexcel().then(async (data) => {
-        //   const isBlob = blobValidate(data);
-        //   if (isBlob) {
-        //     console.log('zheshiblob')
-        //     const blob = new Blob([data], {type: 'application/vnd.ms-excel'});
-        //     //console.log(blob)
-        //     saveAs(blob,"编排结果")
-        //   }
-        //   else {
-        //     const resText = await data.text();
-        //     const rspObj = JSON.parse(resText);
-        //     const errMsg = errorCode[rspObj.code] || rspObj.msg || errorCode['default']
-        //     ElMessage.error(errMsg);
-        //   }
-        //   downloadLoadingInstance.close();
-        // })
       }).then(() => {
+        this.getList();
+        this.$message.success("导出成功");
+      })
+    },
+    handleExport2() {
+      this.$confirm('是否确认导出').then(function() {
+        window.open("http://59.77.134.82:8081/FZUZK/halfexcel")
+      }).then(() => {
+        window.open("http://59.77.134.82:8081/FZUZK/laterexcel")
         this.getList();
         this.$message.success("导出成功");
       })

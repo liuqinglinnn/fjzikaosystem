@@ -8,6 +8,7 @@ export function getzytable(query) {
     params:query
   })
 }
+
 export function getzydetail(zy_dm) {
   return request2({
     url: '/FZUZK/zyyx/checkzyxq/' + zy_dm ,
@@ -53,5 +54,21 @@ export function getzyyxtype() {
     method: 'post',
   })
 }
-
-
+export function getyxzy(yx) {
+  return request2({
+    url: '/FZUZK/yx/yxzy',
+    method: 'post',
+    params:{
+      zy_yx:yx
+    }
+  })
+}
+export function getboard(dm) {
+  return request2({
+    url: '/FZUZK/yx/getboard',
+    method: 'get',
+    params:{
+      zy_dm:dm
+    }
+  })
+}

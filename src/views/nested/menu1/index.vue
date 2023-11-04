@@ -265,10 +265,10 @@
           <el-table-column align="center" label="衔接课程分类" prop="xjkcfl"/>
           <el-table-column align="center" label="备注" prop="bz"/>
         </el-table>
-        <el-table style="margin-top: 50px" @selection-change="handleSelectionChange">
-          <el-table-column align="center" label="主考学校代码" prop="postId"/>
-          <el-table-column align="center" label="主考学校名称" prop="postId"/>
-        </el-table>
+<!--        <el-table style="margin-top: 50px" @selection-change="handleSelectionChange">-->
+<!--          <el-table-column align="center" label="主考学校代码" prop="postId"/>-->
+<!--          <el-table-column align="center" label="主考学校名称" prop="postId"/>-->
+<!--        </el-table>-->
         </span>
 <!--      <span slot="footer" class="dialog-footer">-->
 <!--    <el-button @click="">取 消</el-button>-->
