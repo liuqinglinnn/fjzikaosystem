@@ -77,37 +77,24 @@
             <el-col :span="1.5">
               <el-button
                 icon="el-icon-plus"
-                plain
                 size="mini"
                 type="primary"
                 @click="handleAdd"
-              >新增(开发中)
+              >新增
               </el-button>
             </el-col>
-<!--            <el-col :span="1.5">-->
-<!--              <el-button-->
-<!--                :disabled="single"-->
-<!--                icon="el-icon-edit"-->
-<!--                plain-->
-<!--                size="mini"-->
-<!--                type="success"-->
-<!--                @click="handleUpdate"-->
-<!--              >修改()-->
-<!--              </el-button>-->
-<!--            </el-col>-->
             <el-col :span="1.5">
               <el-button
                 :disabled="multiple"
                 icon="el-icon-delete"
-                plain
                 size="mini"
                 type="danger"
                 @click="handleDelete"
-              >删除(批量删除开发中)
+              >删除
               </el-button>
             </el-col>
           </el-row>
-          <el-table :data="zyList" @selection-change="handleSelectionChange"  style="width:95%;margin-left: 2.5%">
+          <el-table :data="zyList" style="width:95%;margin-left: 2.5%" @selection-change="handleSelectionChange">
             <el-table-column align="center" type="selection" width="55"/>
             <el-table-column align="center" label="专业代码" prop="zy_dm"/>
             <el-table-column align="center" label="专业名称" prop="zy_mc"/>
@@ -143,6 +130,244 @@
         </el-col>
       </el-row>
     </el-row>
+
+    <el-dialog :visible.sync="addopen" title="新增专业" width="80%">
+      <div>123</div>
+    </el-dialog>
+    <el-dialog
+      :before-close="handleClose"
+      :visible.sync="dialogVisible"
+      title="新增专业"
+      width="80%"
+    >
+      <span>
+        <div class="el-table el-table--enable-row-hover el-table--medium">
+          <table style="width: 100%;table-layout:fixed;">
+            <tbody>
+            <tr>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">专业名称</div>
+              </td>
+              <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.zy_mc"
+                      clearable
+                      placeholder="请输入专业名称"
+                    />
+              </td>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">专业代码</div>
+              </td>
+              <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.zy_dm"
+                      clearable
+                      placeholder="请输入专业代码"
+                    />
+              </td>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">学分要求</div>
+              </td>
+            <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.zy_xf"
+                      clearable
+                      placeholder="请输入学分要求"
+                    />
+              </td>
+            </tr>
+            <tr>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">主考学校</div>
+              </td>
+               <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.zy_yx"
+                      clearable
+                      placeholder="请输入主考学校"
+                    />
+              </td>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">学历层次</div>
+              </td>
+               <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.cc"
+                      clearable
+                      placeholder="请输入学历层次"
+                    />
+              </td>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">专业类型</div>
+              </td>
+             <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.zy_type"
+                      clearable
+                      placeholder="请输入专业类型"
+                    />
+              </td>
+            </tr>
+            <tr>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">专业审批</div>
+              </td>
+                <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.zysp"
+                      clearable
+                      placeholder="请输入专业审批"
+                    />
+              </td>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">审批时间</div>
+              </td>
+               <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.spsj"
+                      clearable
+                      placeholder="请输入审批时间"
+                    />
+              </td>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">开考方式</div>
+              </td>
+               <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.kkfs"
+                      clearable
+                      placeholder="请输入开考方式"
+                    />
+              </td>
+            </tr>
+            <tr>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">委托开考</div>
+              </td>
+                 <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.wtkk"
+                      clearable
+                      placeholder="请输入委托开考"
+                    />
+              </td>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">委托单位</div>
+              </td>
+                     <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.wtdw"
+                      clearable
+                      placeholder="请输入委托单位"
+                    />
+              </td>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">报考条件</div>
+              </td>
+                      <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.bktj"
+                      clearable
+                      placeholder="请输入报考条件"
+                    />
+              </td>
+            </tr>
+            <tr>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">毕业证书停止颁发</div>
+              </td>
+                <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.zstf"
+                      clearable
+                      placeholder="毕业证书停止颁发"
+                    />
+              </td>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">专业停考</div>
+              </td>
+               <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.zytk"
+                      clearable
+                      placeholder="请输入专业停考"
+                    />
+              </td>
+              <td class="el-table__cell is-leaf">
+                <div class="cell">停止接收新生</div>
+              </td>
+                <td class="el-table__cell is-leaf">
+                    <el-input
+                      class="cell"
+                      v-model="form.zyxq.sftzzs"
+                      clearable
+                      placeholder="请输入停止接收新生"
+                    />
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <el-col :span="1.5">
+        <el-upload
+          :action="null"
+          :http-request="imgUploadLicense"
+          :show-file-list="false"
+          class="upload-demo"
+        >
+          <el-button
+            plain
+            style="margin: 10px"
+            size="mini"
+            type="primary"
+          >导入
+          </el-button>
+        </el-upload>
+      </el-col>
+        <el-table :data="form.zykcMessageList" style="margin-top: 50px" @selection-change="handleSelectionChange">
+          <el-table-column align="center" label="当次开考" prop="dckk"/>
+          <el-table-column align="center" label="序号" prop="xh"/>
+          <el-table-column align="center" label="代码" prop="kc_dm"/>
+          <el-table-column align="center" label="国考" prop="bz"/>
+          <el-table-column align="center" label="课程名称" prop="kc_mc"/>
+          <el-table-column align="center" label="学分" prop="kc_xf"/>
+          <el-table-column align="center" label="课程类型" prop="kctype"/>
+          <el-table-column align="center" label="课程属性" prop="kcsx"/>
+          <el-table-column align="center" label="衔接属性" prop="xjsx"/>
+          <el-table-column align="center" label="衔接课程分类" prop="xjkcfl"/>
+          <el-table-column align="center" label="备注" prop="bz"/>
+          <el-table-column align="center" label="操作" width="250">
+              <template #default="scope">
+                <el-button
+                  size="mini"
+                  type="text"
+                  @click="handleDeleteupload(scope.row)"
+                >删除
+                </el-button>
+              </template>
+          </el-table-column>
+        </el-table>
+        </span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="submit">确 定</el-button>
+  </span>
+    </el-dialog>
+
     <el-dialog :title="title" :visible.sync="open" width="80%">
         <span>
           <div class="el-table el-table--enable-row-hover el-table--medium">
@@ -265,24 +490,25 @@
           <el-table-column align="center" label="衔接课程分类" prop="xjkcfl"/>
           <el-table-column align="center" label="备注" prop="bz"/>
         </el-table>
-<!--        <el-table style="margin-top: 50px" @selection-change="handleSelectionChange">-->
-<!--          <el-table-column align="center" label="主考学校代码" prop="postId"/>-->
-<!--          <el-table-column align="center" label="主考学校名称" prop="postId"/>-->
-<!--        </el-table>-->
+          <!--        <el-table style="margin-top: 50px" @selection-change="handleSelectionChange">-->
+          <!--          <el-table-column align="center" label="主考学校代码" prop="postId"/>-->
+          <!--          <el-table-column align="center" label="主考学校名称" prop="postId"/>-->
+          <!--        </el-table>-->
         </span>
-<!--      <span slot="footer" class="dialog-footer">-->
-<!--    <el-button @click="">取 消</el-button>-->
-<!--    <el-button type="primary" @click="">确 定</el-button>-->
-<!--  </span>-->
+      <!--      <span slot="footer" class="dialog-footer">-->
+      <!--    <el-button @click="">取 消</el-button>-->
+      <!--    <el-button type="primary" @click="">确 定</el-button>-->
+      <!--  </span>-->
     </el-dialog>
+
   </div>
 </template>
 
 <script>
-import { deletezy, getzydetail, getzytable, updatezymes } from '@/api/plan'
+import { addzy, deletezylist, getzydetail, getzytable, updatezy, updatezymes } from '@/api/plan'
+import XLSX from 'xlsx'
 
 export default {
-  name: 'Post',
   data() {
     return {
       // 选中数组
@@ -293,6 +519,7 @@ export default {
       multiple: true,
       // 显示搜索条件
       showSearch: true,
+      dialogVisible: false,
       // 总条数
       total: 0,
       zyList: [],
@@ -313,11 +540,11 @@ export default {
       },
       form: {
         'zyxq': {
-          'zy_mc': '汽车制造与试验技术',
-          'zy_dm': '460701',
+          'zy_mc': null,
+          'zy_dm': null,
           'zy_xf': null,
-          'zy_yx': '闽西职业技术学院',
-          'cc': '专科',
+          'zy_yx': null,
+          'cc': null,
           'zy_type': null,
           'zysp': null,
           'spsj': null,
@@ -597,6 +824,7 @@ export default {
         ]
       },
       gkform: {},
+      addopen: false,
       options: [
         {
           value: 1,
@@ -631,7 +859,6 @@ export default {
           label: '10月27日下午14:30-17:00'
         }
       ]
-
     }
   },
   mounted() {
@@ -644,19 +871,84 @@ export default {
         this.zyList = response.data
       })
     },
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done()
+        })
+        .catch(_ => {
+        })
+    },
     cancel() {
       this.open = false
       this.uopen = false
-      this.gopen = false
+      this.addopen = false
       this.reset()
     },
     // 表单重置
     reset() {
-      this.form = {}
+      this.form = {
+        'zyxq': {
+          'zy_mc': null,
+          'zy_dm': null,
+          'zy_xf': null,
+          'zy_yx': null,
+          'cc': null,
+          'zy_type': null,
+          'zysp': null,
+          'spsj': null,
+          'kkfs': null,
+          'wtkk': null,
+          'wtdw': null,
+          'bktj': null,
+          'zstf': null,
+          'zytk': null,
+          'sftzzs': null
+        },
+        'zykcMessageList': [
+        ]
+      }
+      console.log(this.form)
     },
     /** 搜索按钮操作 */
     handleQuery() {
       this.getList()
+    },
+    imgUploadLicense(e) {
+      console.log(e)
+      this.uploadgktime(e.file)
+    },
+     uploadzhuanye(e) {
+      console.log(e)
+      this.form.zykcMessageList=e
+    },
+    uploadgktime(event) {
+      let that=this
+      var f = event
+      var reader = new FileReader()
+      FileReader.prototype.readAsBinaryString = function(f) {
+        var binary = ''
+        var wb // 读取完成的数据
+        var outdata // 你需要的数据
+        var reader = new FileReader()
+        reader.onload = function(e) {
+          var bytes = new Uint8Array(reader.result)
+          var length = bytes.byteLength
+          for (var i = 0; i < length; i++) {
+            binary += String.fromCharCode(bytes[i])
+          }
+          wb = XLSX.read(binary, {
+            type: 'binary'
+          })
+          outdata = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
+          that.uploadzhuanye(123)
+          console.log(that.form,"form")
+          that.form.zykcMessageList=outdata
+        }
+        reader.readAsArrayBuffer(f)
+      }
+      reader.readAsBinaryString(f)
+      this.$message.success('上传成功')
     },
     /** 重置按钮操作 */
     resetQuery() {
@@ -683,14 +975,12 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset()
-      this.uopen = true
-      this.title = '专业信息'
+      this.dialogVisible = true
     },
     handleDetail(row) {
       this.reset()
       this.open = true
       getzydetail(row.zy_dm).then(response => {
-        console.log(response.data, 'detail')
         this.form = response.data
         this.open = true
         this.title = '专业信息详情'
@@ -698,28 +988,52 @@ export default {
     },
     handleUpdate(row) {
       this.reset()
-      // let chuancan = this.queryParams
-      // chuancan.zy_dm = row.zy_dm || this.ids[0]
-      // getzymes(chuancan).then(response => {
-      //   this.form = response.data.data;
-      //   this.open = true;
-      //   this.title = "专业修改";
-      // });
       console.log(row)
-      this.form = row
+      getzydetail(row.zy_dm).then(response => {
+        this.form = response.data
+        this.dialogVisible = true
+        this.title = '专业修改'
+      })
+    },
+    submit(){
       console.log(this.form)
-      this.open = true
-      this.title = '专业修改'
+      if(this.title == '专业修改')
+      {
+       updatezy(this.form).then(response => {
+          this.$message.success('修改成功')
+          this.uopen = false
+          this.addopen = false
+          this.open = false
+          this.dialogVisible=false
+          this.getList()
+        })
+      }
+      else {
+        addzy(this.form).then(response => {
+          this.$message.success('新增成功')
+          this.uopen = false
+          this.addopen = false
+          this.open = false
+          this.dialogVisible=false
+          this.getList()
+        })
+      }
     },
     /** 提交按钮 */
     submitForm() {
       updatezymes(this.form).then(response => {
-        this.$modal.msgSuccess('修改成功')
+        this.$message.success('修改成功')
         this.uopen = false
-        this.gopen = false
+        this.addopen = false
         this.open = false
         this.getList()
       })
+    },
+    handleDeleteupload(row) {
+     this.form.zykcMessageList=this.form.zykcMessageList.filter((item) => {
+       const result = item.kc_dm != row.kc_dm
+       return result;
+     })
     },
     handleDelete(row) {
       this.$confirm('此操作将删除专业, 是否继续?', '提示', {
@@ -727,21 +1041,20 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deletezy(row.zy_dm).then(response => {
+        deletezylist(this.ids).then(response => {
           this.getList()
           this.$message({
             type: 'success',
             message: '删除成功!'
-          });
+          })
         })
-
 
       }).catch(() => {
         this.$message({
           type: 'info',
           message: '已取消删除'
-        });
-      });
+        })
+      })
     },
     handleExport() {
       this.download('system/post/export', {

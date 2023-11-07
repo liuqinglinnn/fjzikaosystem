@@ -25,13 +25,13 @@ export function getexcel() {
     method: 'get',
   })
 }
-export function uploadexcel(a) {
+export function uploadexcel(gkSj) {
   return request2({
     url: '/FZUZK/zykc/importgksj',
     method: 'post',
-    data: a,
-    // paramsSerializer: function (params) {
-    //   return qs.stringify(params,{ arrayFormat: "repeat",encode: false });
-    // },
+    data: gkSj,
+    headers: {
+      'Content-Type': 'application/json',
+    }
   })
 }
