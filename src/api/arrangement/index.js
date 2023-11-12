@@ -16,6 +16,12 @@ export function orderlist() {
     method: 'post',
   })
 }
+export function orderlistlater() {
+  return request2({
+    url: '/FZUZK/zykc/orderlistlater',
+    method: 'post',
+  })
+}
 export function getexcel() {
   return request2({
     headers: {

@@ -48,8 +48,13 @@
     </el-row>
     <!--表格-->
     <el-row>
-      <el-table v-fit-columns :cell-style="{'text-align':'center'}" :data="arrangeData" :header-cell-style="{'text-align':'center'}"
-                height="85vh" style="width:95%;margin-left: 2.5%"
+      <el-table
+        v-fit-columns
+        :cell-style="{'text-align':'center'}"
+        :data="arrangeData"
+        :header-cell-style="{'text-align':'center'}"
+        height="85vh"
+        style="width:95%;margin-left: 2.5%"
       >
         <el-table-column label="开考专业" width="300">
           <el-table-column label="专业代码名称" prop="zy_mc" width="150">
@@ -60,8 +65,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="面向社会开考主考学校" prop="zy_yx" width="150">
-          </el-table-column>
+          <el-table-column label="面向社会开考主考学校" prop="zy_yx" width="150" />
         </el-table-column>
         <el-table-column v-for="(hitem,index) in arrangeData[0].date" :key="index">
           <template #header>
@@ -70,7 +74,6 @@
           <el-table-column label="上   午  (9:00-11:30)" prop="morning" width="150">
             <template #default="morning">
               <div v-for="item in morning.row.date[index].morningList">
-
                 <div v-if="item.bz!='国考'">{{ item.kc_dm }} {{ item.kc_mc }}△</div>
                 <div v-else> {{ item.kc_dm }} {{ item.kc_mc }}</div>
               </div>
@@ -79,7 +82,8 @@
           <el-table-column label="下   午  (14:30-17:00)" prop="afternoon" width="150">
             <template #default="afernoon">
               <div v-for="item in afernoon.row.date[index].afternoonList">
-                {{ item.kc_dm }} {{ item.kc_mc }}
+                <div v-if="item.bz!='国考'">{{ item.kc_dm }} {{ item.kc_mc }}△</div>
+                <div v-else> {{ item.kc_dm }} {{ item.kc_mc }}</div>
               </div>
             </template>
           </el-table-column>
@@ -93,9 +97,6 @@
 <script>
 import { getkstable, orderlist, uploadexcel } from '@/api/arrangement'
 import XLSX from 'xlsx'
-import axios from 'axios'
-import { updategkkc } from '@/api/plan'
-
 export default {
   data() {
     return {
@@ -130,7 +131,7 @@ export default {
     this.getList()
   },
   methods: {
-    //文件操作
+    // 文件操作
     imgUploadLicense(e) {
       console.log(e)
       this.uploadgktime(e.file)
@@ -165,7 +166,7 @@ export default {
           //    b[i]=outdata[i].sj,
           //      c[i]=outdata[i].kc_mc
           // }
-        uploadexcel(outdata).then(res=>{
+          uploadexcel(outdata).then(res => {
             console.log(res)
           })
           // console.log(outdata, output)
@@ -185,6 +186,8 @@ export default {
     handlearrangement() {
       this.$confirm('是否确认重新编排').then(function() {
         orderlist().then(response => {
+          orderlistlater().then(response => {
+          })
         })
       }).then(() => {
         this.getList()
@@ -229,6 +232,5 @@ export default {
   border-radius: 3px;
   background: rgba(255, 255, 255, 1);
 }
-
 
 </style>

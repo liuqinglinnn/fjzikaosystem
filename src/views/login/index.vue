@@ -156,7 +156,6 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if(this.loginForm.username=="admin"&&this.loginForm.password=="fzusors2023")
         {
-
           if (valid) {
             this.loading = true
             this.$store.dispatch('user/login', this.loginForm)
@@ -172,9 +171,6 @@ export default {
             return false
           }
         }
-
-
-
       })
     },
     getOtherQuery(query) {
